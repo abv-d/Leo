@@ -3,7 +3,37 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="ext-resource-dependency" content="q1.jpg" data-resource-id="img_q1_jpg" />
+<meta name="ext-resource-dependency" content="q2.jpg" data-resource-id="img_q2_jpg" />
+<meta name="ext-resource-dependency" content="q3.jpg" data-resource-id="img_q3_jpg" />
+<meta name="ext-resource-dependency" content="q4.jpg" data-resource-id="img_q4_jpg" />
+<meta name="ext-resource-dependency" content="q5.jpg" data-resource-id="img_q5_jpg" />
+<meta name="ext-resource-dependency" content="q6.jpg" data-resource-id="img_q6_jpg" />
+<meta name="ext-resource-dependency" content="q7.jpg" data-resource-id="img_q7_jpg" />
+<meta name="ext-resource-dependency" content="q8.jpg" data-resource-id="img_q8_jpg" />
+<meta name="ext-resource-dependency" content="q9.jpg" data-resource-id="img_q9_jpg" />
+<meta name="ext-resource-dependency" content="q10.jpg" data-resource-id="img_q10_jpg" />
+<meta name="ext-resource-dependency" content="q11.jpg" data-resource-id="img_q11_jpg" />
+<meta name="ext-resource-dependency" content="q12.jpg" data-resource-id="img_q12_jpg" />
+<meta name="ext-resource-dependency" content="q13.jpg" data-resource-id="img_q13_jpg" />
+<meta name="ext-resource-dependency" content="q14.jpg" data-resource-id="img_q14_jpg" />
+<meta name="ext-resource-dependency" content="q15.jpg" data-resource-id="img_q15_jpg" />
+<meta name="ext-resource-dependency" content="q16.jpg" data-resource-id="img_q16_jpg" />
+<meta name="ext-resource-dependency" content="q17.jpg" data-resource-id="img_q17_jpg" />
+<meta name="ext-resource-dependency" content="q18.png" data-resource-id="img_q18_png" />
+<meta name="ext-resource-dependency" content="q19.png" data-resource-id="img_q19_png" />
+<meta name="ext-resource-dependency" content="q20.png" data-resource-id="img_q20_png" />
+<meta name="ext-resource-dependency" content="q21.png" data-resource-id="img_q21_png" />
 <script src="./support.js"></script>
+<template id="__bundler_thumbnail" data-bg-color="#0F0F11">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0F0F11"/>
+    <rect x="430" y="300" width="180" height="180" rx="0" fill="#8f6556"/>
+    <path d="M430 440 a40 40 0 0 1 40 40 h-40 z" fill="#0F0F11"/>
+    <text x="520" y="420" font-family="Georgia, 'Times New Roman', serif" font-size="120" font-weight="700" fill="#0F0F11" text-anchor="middle">CL</text>
+    <text x="600" y="560" font-family="Georgia, 'Times New Roman', serif" font-size="74" letter-spacing="6" fill="#ECEAE6" text-anchor="middle">ЛЕО <tspan fill="#8f6556" font-weight="700">РИТМ</tspan></text>
+  </svg>
+</template>
 </head>
 <body>
 <x-dc>
@@ -18,7 +48,14 @@
   ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.14); border-radius: 8px; }
   ::-webkit-scrollbar-track { background: transparent; }
   .lr-scroll::-webkit-scrollbar { height: 6px; }
+  .lr-noscroll::-webkit-scrollbar { display: none; }
+  .lr-noscroll { scrollbar-width: none; -ms-overflow-style: none; }
   @keyframes lrIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .lr-card { position: relative; overflow: hidden; transition: border-color .22s, box-shadow .26s; }
+  .lr-card:hover { box-shadow: 0 22px 46px -22px rgba(0,0,0,.65); border-color: rgba(143,101,86,.45) !important; }
+  .lr-card .lr-panel { transition: padding-bottom .32s ease; }
+  .lr-card .lr-meta { max-height: 0; opacity: 0; overflow: hidden; margin-top: 0; transition: max-height .32s ease, opacity .28s ease, margin-top .32s ease; }
+  .lr-card:hover .lr-meta { max-height: 40px; opacity: 1; margin-top: 8px; }
 </style>
 </helmet>
 <div style="min-height:100vh;background:#0F0F11;font-family:'Golos Text',system-ui,sans-serif;color:#ECEAE6;-webkit-font-smoothing:antialiased;">
@@ -94,19 +131,27 @@
           <p style="max-width:560px;margin:18px auto 0;color:{{ txtMut }};font-size:17px;line-height:1.55;">Подберём студию под возраст, район и стиль за один шаг. Реальные расписания, цены и пробные занятия — без регистрации.</p>
 
           <!-- search panel -->
-          <div style="margin:44px auto 0;background:#ecd9bc;border-radius:22px;padding:32px 36px;box-shadow:0 30px 70px -30px rgba(0,0,0,.45);max-width:1060px;text-align:left;">
-            <div style="display:grid;grid-template-columns:{{ heroGridCols }};gap:18px;">
+          <div style="margin:44px auto 0;background:#8f6557;border-radius:22px;padding:32px 36px;box-shadow:0 30px 70px -30px rgba(0,0,0,.5);max-width:1060px;text-align:left;">
+            <div>
+              <div style="font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(246,239,234,.8);margin-bottom:9px;">Возраст ребёнка</div>
+              <div style="display:flex;gap:8px;">
+                <sc-for list="{{ agePresets }}" as="a" hint-placeholder-count="3">
+                  <button onClick="{{ a.onClick }}" style="{{ a.style }}" style-hover="{{ a.hoverStyle }}">{{ a.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="margin-top:18px;display:grid;grid-template-columns:{{ heroGridCols }};gap:18px;">
               <div>
-                <div style="font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#9b9489;margin-bottom:9px;">Возраст ребёнка</div>
-                <div style="display:flex;gap:8px;">
-                  <sc-for list="{{ agePresets }}" as="a" hint-placeholder-count="3">
-                    <button onClick="{{ a.onClick }}" style="{{ a.style }}">{{ a.label }}</button>
-                  </sc-for>
-                </div>
+                <div style="font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(246,239,234,.8);margin-bottom:9px;">Город</div>
+                <select style="width:100%;height:42px;border-radius:11px;border:1px solid rgba(255,255,255,.2);background:#fff;color:#2c2a26;font-family:'Golos Text',sans-serif;font-size:14.5px;padding:0 12px;cursor:pointer;">
+                  <option value="spb" selected>Санкт-Петербург</option>
+                  <option value="msk" disabled>Москва — скоро</option>
+                  <option value="ekb" disabled>Екатеринбург — скоро</option>
+                </select>
               </div>
               <div>
-                <div style="font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#9b9489;margin-bottom:9px;">Район / метро</div>
-                <select onChange="{{ onHeroDistrict }}" style="width:100%;height:42px;border-radius:11px;border:1px solid #ddd6ca;background:#fff;color:#2c2a26;font-family:'Golos Text',sans-serif;font-size:14.5px;padding:0 12px;cursor:pointer;">
+                <div style="font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(246,239,234,.8);margin-bottom:9px;">Район / метро</div>
+                <select onChange="{{ onHeroDistrict }}" style="width:100%;height:42px;border-radius:11px;border:1px solid rgba(255,255,255,.2);background:#fff;color:#2c2a26;font-family:'Golos Text',sans-serif;font-size:14.5px;padding:0 12px;cursor:pointer;">
                   <option value="">Любой район</option>
                   <sc-for list="{{ districts }}" as="d" hint-placeholder-count="6">
                     <option value="{{ d }}">{{ d }}</option>
@@ -115,22 +160,29 @@
               </div>
             </div>
             <div style="margin-top:18px;">
-              <div style="font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#9b9489;margin-bottom:9px;">Стиль танца</div>
+              <div style="font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(246,239,234,.8);margin-bottom:9px;">Стиль танца</div>
               <div style="display:flex;flex-wrap:wrap;gap:8px;">
                 <sc-for list="{{ heroStyleChips }}" as="c" hint-placeholder-count="8">
-                  <button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.name }}</button>
+                  <button onClick="{{ c.onClick }}" style="{{ c.style }}" style-hover="{{ c.hoverStyle }}">{{ c.name }}</button>
                 </sc-for>
               </div>
             </div>
             <div style="margin-top:22px;display:flex;justify-content:center;">
-              <button onClick="{{ goPodbor }}" style="padding:14px 32px;border-radius:12px;border:none;cursor:pointer;background:#8f6556;color:#F6EFEA;font-family:'Golos Text',sans-serif;font-weight:700;font-size:16px;" style-hover="background:#7a564a;">Подобрать студию</button>
+              <button onClick="{{ goPodbor }}" style="padding:14px 34px;border-radius:12px;border:none;cursor:pointer;background:#111317;color:#fff;font-family:'Golos Text',sans-serif;font-weight:700;font-size:16px;" style-hover="background:#000;">Подобрать студию</button>
             </div>
           </div>
         </section>
 
         <!-- INFOGRAPHIC -->
         <section style="{{ wrapPad }}padding-top:30px;padding-bottom:14px;">
-          <h2 style="{{ rowTitleStyle }}text-align:center;">Танцевальный Петербург в цифрах</h2>
+          <h2 style="{{ rowTitleStyle }}text-align:center;">Танцевальный город в цифрах</h2>
+          <div style="margin-top:14px;display:flex;justify-content:center;">
+            <select style="height:40px;border-radius:11px;border:1px solid rgba(255,255,255,.16);background:#16161A;color:#ECEAE6;font-family:'Golos Text',sans-serif;font-size:14px;padding:0 14px;cursor:pointer;">
+              <option value="spb" selected>Санкт-Петербург</option>
+              <option value="msk" disabled>Москва — скоро</option>
+              <option value="ekb" disabled>Екатеринбург — скоро</option>
+            </select>
+          </div>
           <div style="margin-top:20px;display:grid;grid-template-columns:{{ statGridCols }};gap:16px;">
             <sc-for list="{{ homeStats }}" as="s" hint-placeholder-count="3">
               <div style="background:#16161A;border:1px solid rgba(255,255,255,.07);border-radius:0 0 16px 0;padding:22px;">
@@ -174,9 +226,9 @@
             </div>
             <button onClick="{{ goPodbor }}" style="background:none;border:none;cursor:pointer;color:#8f6556;font-family:'Golos Text',sans-serif;font-size:14.5px;white-space:nowrap;">Все события</button>
           </div>
-          <div class="lr-scroll" style="display:flex;gap:16px;overflow-x:auto;padding-bottom:8px;margin:0 -4px;padding-left:4px;padding-right:4px;">
+          <div id="home-events-strip" class="lr-noscroll" style="display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px;">
             <sc-for list="{{ events }}" as="e" hint-placeholder-count="4">
-              <article style="flex:0 0 320px;background:#16161A;border:1px solid rgba(255,255,255,.07);border-radius:0 0 16px 0;overflow:hidden;">
+              <article style="flex:0 0 320px;scroll-snap-align:start;background:#16161A;border:1px solid rgba(255,255,255,.07);border-radius:0 0 16px 0;overflow:hidden;">
                 <div style="position:relative;height:150px;{{ e.shotBg }}display:flex;align-items:flex-end;padding:14px;">
                   <div style="position:absolute;top:12px;left:12px;background:#0F0F11;border-radius:10px;padding:7px 11px;text-align:center;line-height:1;">
                     <div style="font-family:'Ysabeau Office',serif;font-weight:700;font-size:21px;color:#8f6556;">{{ e.day }}</div>
@@ -197,6 +249,11 @@
                   <button onClick="{{ e.onRemind }}" style="{{ e.remindStyle }}">{{ e.remindLabel }}</button>
                 </div>
               </article>
+            </sc-for>
+          </div>
+          <div style="display:flex;justify-content:center;gap:8px;margin-top:18px;">
+            <sc-for list="{{ eventDots }}" as="d" hint-placeholder-count="4">
+              <button onClick="{{ d.onClick }}" style="{{ d.style }}"></button>
             </sc-for>
           </div>
         </section>
@@ -249,28 +306,24 @@
           </div>
           <div style="display:grid;grid-template-columns:{{ studioGridCols }};gap:18px;">
             <sc-for list="{{ homeStudios }}" as="st" hint-placeholder-count="8">
-              <article onClick="{{ st.onOpen }}" style="background:#16161A;border:1px solid rgba(255,255,255,.07);border-radius:0 0 16px 0;overflow:hidden;cursor:pointer;transition:border-color .2s,transform .2s;" style-hover="border-color:rgba(143,101,86,.4);transform:translateY(-3px);">
-                <div style="position:relative;height:170px;{{ st.shotBg }}display:flex;align-items:flex-end;padding:12px;">
-                  <sc-if value="{{ st.promoted }}" hint-placeholder-val="{{ false }}">
-                    <div style="position:absolute;top:11px;left:11px;background:rgba(15,15,17,.82);color:#8C8B90;font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:5px 8px;border-radius:7px;">продвижение</div>
-                  </sc-if>
-                  
-                </div>
-                <div style="padding:15px;">
+              <article onClick="{{ st.onOpen }}" class="lr-card" style="height:280px;background:#16161A;border:1px solid rgba(255,255,255,.07);border-radius:0 0 16px 0;cursor:pointer;">
+                <div style="position:absolute;inset:0;{{ st.shotBg }}"></div>
+                <sc-if value="{{ st.promoted }}" hint-placeholder-val="{{ false }}">
+                  <div style="position:absolute;top:11px;left:11px;background:rgba(15,15,17,.82);color:#8C8B90;font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:5px 8px;border-radius:7px;">продвижение</div>
+                </sc-if>
+                <div class="lr-panel" style="position:absolute;left:0;right:0;bottom:0;background:#16161A;padding:15px;">
                   <div style="display:flex;align-items:center;gap:7px;">
                     <h3 style="margin:0;font-family:'Ysabeau',serif;font-weight:600;font-size:18.5px;color:#ECEAE6;line-height:1.15;">{{ st.name }}</h3>
                     <sc-if value="{{ st.verified }}" hint-placeholder-val="{{ true }}">
                       <span title="Проверено" style="flex:0 0 auto;width:16px;height:16px;border-radius:50%;background:rgba(143,101,86,.16);color:#8f6556;font-size:10px;display:flex;align-items:center;justify-content:center;">✓</span>
                     </sc-if>
                   </div>
-                  <div style="margin-top:7px;color:#9A99A0;font-size:13px;display:flex;align-items:center;gap:6px;">
-                    <span>{{ st.district }}</span>
-                  </div>
-                  <div style="margin-top:11px;display:flex;flex-wrap:wrap;gap:6px;">
+                  <div style="margin-top:11px;display:flex;flex-wrap:nowrap;gap:6px;overflow:hidden;">
                     <sc-for list="{{ st.tags }}" as="t" hint-placeholder-count="2">
-                      <span style="font-size:11.5px;color:#cfcdc8;background:rgba(255,255,255,.06);border-radius:7px;padding:4px 8px;">{{ t }}</span>
+                      <span style="flex:0 0 auto;font-size:11.5px;color:#cfcdc8;background:rgba(255,255,255,.06);border-radius:7px;padding:4px 8px;white-space:nowrap;">{{ t }}</span>
                     </sc-for>
                   </div>
+                  <div class="lr-meta" style="color:#9A99A0;font-size:13px;">{{ st.district }} район</div>
                 </div>
               </article>
             </sc-for>
@@ -286,9 +339,9 @@
             </div>
             <button onClick="{{ goPodbor }}" style="background:none;border:none;cursor:pointer;color:#8f6556;font-family:'Golos Text',sans-serif;font-size:14.5px;white-space:nowrap;">Все программы</button>
           </div>
-          <div class="lr-scroll" style="display:flex;gap:16px;overflow-x:auto;padding-bottom:8px;margin:0 -4px;padding-left:4px;padding-right:4px;">
+          <div id="home-masters-strip" class="lr-noscroll" style="display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px;">
             <sc-for list="{{ masters }}" as="m" hint-placeholder-count="4">
-              <article style="flex:0 0 270px;background:linear-gradient(180deg,#1C1C21,#161619);border:1px solid rgba(143,101,86,.22);border-radius:0 0 16px 0;overflow:hidden;">
+              <article style="flex:0 0 270px;scroll-snap-align:start;background:linear-gradient(180deg,#1C1C21,#161619);border:1px solid rgba(143,101,86,.22);border-radius:0 0 16px 0;overflow:hidden;">
                 <div style="position:relative;height:230px;{{ m.shotBg }}display:flex;align-items:flex-start;justify-content:space-between;padding:14px;">
                   <span style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#F6EFEA;background:#8f6556;padding:5px 9px;border-radius:7px;font-weight:600;">{{ m.format }}</span>
                   
@@ -303,6 +356,11 @@
                   </div>
                 </div>
               </article>
+            </sc-for>
+          </div>
+          <div style="display:flex;justify-content:center;gap:8px;margin-top:18px;">
+            <sc-for list="{{ masterDots }}" as="d" hint-placeholder-count="4">
+              <button onClick="{{ d.onClick }}" style="{{ d.style }}"></button>
             </sc-for>
           </div>
         </section>
@@ -364,11 +422,9 @@
 
         <!-- gallery -->
         <section style="{{ wrapPad }}padding-top:14px;">
-          <div style="display:grid;grid-template-columns:{{ sp.galleryCols }};gap:12px;">
-            <div style="position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;{{ sp.heroShot }}">
-              
-            </div>
-            <sc-for list="{{ sp.thumbs }}" as="t" hint-placeholder-count="3">
+          <div style="position:relative;width:100%;aspect-ratio:{{ sp.coverRatio }};border-radius:16px;overflow:hidden;{{ sp.heroShot }}"></div>
+          <div style="margin-top:12px;display:grid;grid-template-columns:{{ sp.galleryCols }};gap:12px;">
+            <sc-for list="{{ sp.thumbs }}" as="t" hint-placeholder-count="2">
               <div style="position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;{{ t.shot }}">
                 
               </div>
@@ -573,26 +629,24 @@
             <sc-if value="{{ catHasResults }}" hint-placeholder-val="{{ true }}">
             <div style="display:grid;grid-template-columns:{{ catGridCols }};gap:18px;">
               <sc-for list="{{ catStudios }}" as="st" hint-placeholder-count="6">
-                <article onClick="{{ st.onOpen }}" style="background:#16161A;border:1px solid rgba(255,255,255,.07);border-radius:0 0 16px 0;overflow:hidden;cursor:pointer;transition:border-color .2s,transform .2s;" style-hover="border-color:rgba(143,101,86,.4);transform:translateY(-3px);">
-                  <div style="position:relative;height:160px;{{ st.shotBg }}display:flex;align-items:flex-end;padding:12px;">
-                    <sc-if value="{{ st.promoted }}" hint-placeholder-val="{{ false }}">
-                      <div style="position:absolute;top:11px;left:11px;background:rgba(15,15,17,.82);color:#8C8B90;font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:5px 8px;border-radius:7px;">продвижение</div>
-                    </sc-if>
-                    
-                  </div>
-                  <div style="padding:15px;">
+                <article onClick="{{ st.onOpen }}" class="lr-card" style="height:270px;background:#16161A;border:1px solid rgba(255,255,255,.07);border-radius:0 0 16px 0;cursor:pointer;">
+                  <div style="position:absolute;inset:0;{{ st.shotBg }}"></div>
+                  <sc-if value="{{ st.promoted }}" hint-placeholder-val="{{ false }}">
+                    <div style="position:absolute;top:11px;left:11px;background:rgba(15,15,17,.82);color:#8C8B90;font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:5px 8px;border-radius:7px;">продвижение</div>
+                  </sc-if>
+                  <div class="lr-panel" style="position:absolute;left:0;right:0;bottom:0;background:#16161A;padding:15px;">
                     <div style="display:flex;align-items:center;gap:7px;">
                       <h3 style="margin:0;font-family:'Ysabeau',serif;font-weight:600;font-size:18.5px;color:#ECEAE6;line-height:1.15;">{{ st.name }}</h3>
                       <sc-if value="{{ st.verified }}" hint-placeholder-val="{{ true }}">
                         <span style="flex:0 0 auto;width:16px;height:16px;border-radius:50%;background:rgba(143,101,86,.16);color:#8f6556;font-size:10px;display:flex;align-items:center;justify-content:center;">✓</span>
                       </sc-if>
                     </div>
-                    <div style="margin-top:7px;color:#9A99A0;font-size:13px;">{{ st.district }}</div>
-                    <div style="margin-top:11px;display:flex;flex-wrap:wrap;gap:6px;">
+                    <div style="margin-top:11px;display:flex;flex-wrap:nowrap;gap:6px;overflow:hidden;">
                       <sc-for list="{{ st.tags }}" as="t" hint-placeholder-count="2">
-                        <span style="font-size:11.5px;color:#cfcdc8;background:rgba(255,255,255,.06);border-radius:7px;padding:4px 8px;">{{ t }}</span>
+                        <span style="flex:0 0 auto;font-size:11.5px;color:#cfcdc8;background:rgba(255,255,255,.06);border-radius:7px;padding:4px 8px;white-space:nowrap;">{{ t }}</span>
                       </sc-for>
                     </div>
+                    <div class="lr-meta" style="color:#9A99A0;font-size:13px;">{{ st.district }} район</div>
                   </div>
                 </article>
               </sc-for>
@@ -909,14 +963,16 @@ class Component extends DCLogic {
   shot(seed) {
     const P = ['q1.jpg','q2.jpg','q3.jpg','q4.jpg','q5.jpg','q6.jpg','q7.jpg','q8.jpg','q9.jpg','q10.jpg','q11.jpg','q12.jpg','q13.jpg','q14.jpg','q15.jpg','q16.jpg','q17.jpg','q18.png','q19.png','q20.png','q21.png'];
     const str = String(seed); let h=0; for(let i=0;i<str.length;i++){ h=(h*31+str.charCodeAt(i))|0; }
-    const url = 'assets/'+P[Math.abs(h)%P.length];
-    return `background-image:linear-gradient(rgba(143,101,87,.15), rgba(143,101,87,.15)), url("${url}");background-size:cover;background-position:center;`;
+    const file = P[Math.abs(h)%P.length];
+    const id = 'img_'+file.replace(/\W/g,'_');
+    const url = (window.__resources && window.__resources[id]) || file;
+    return `background-image:linear-gradient(rgba(143,101,87,.20), rgba(143,101,87,.20)), url("${url}");background-size:cover;background-position:center;`;
   }
 
   STUDIOS = [
     { id:0, name:'Пируэт', district:'Петроградский', metro:'Петроградская', ages:['5-7','8-11','12-16'], tags:['Балет','Современный'], promoted:true, verified:true, tier:'premium', price:'от 4 900 ₽/мес', gallery:true, hue:30, shotLabel:'ФОТО: зал у станка', about:'Классическая школа балета с 2009 года. Постановка корпуса, выворотность, музыкальность — бережно и по возрасту.', teachers:['Анна Северская — педагог высшей категории','Мария Долинина — характерный танец'] },
     { id:1, name:'Драйв', district:'Центральный', metro:'Маяковская', ages:['8-11','12-16'], tags:['Хип-хоп','Брейкинг'], promoted:true, verified:true, tier:'premium', price:'от 4 200 ₽/мес', gallery:true, hue:55, shotLabel:'ФОТО: групповая репетиция', about:'Уличные стили для подростков: хип-хоп, брейкинг, баттлы. Команда регулярно берёт призы городских чемпионатов.', teachers:['Игорь Власов — hip-hop, ex-чемпион СЗФО','Дэн Кир — breaking'] },
-    { id:2, name:'Грация', district:'Московский', metro:'Московская', ages:['5-7','8-11'], tags:['Художественная гимнастика','Акробатика'], promoted:false, verified:true, tier:'pro', price:'от 3 800 ₽/мес', gallery:true, hue:20, shotLabel:'ФОТО: ковёр, растяжка', about:'Гимнастика и акробатика для самых маленьких. Мягкое развитие гибкости, осанки и координации.', teachers:['Ольга Реброва — КМС','Светлана Юдина'] },
+    { id:2, name:'Грация', district:'Московский', metro:'Московская', ages:['5-7','8-11'], tags:['Худ. гимнастика','Акробатика'], promoted:false, verified:true, tier:'pro', price:'от 3 800 ₽/мес', gallery:true, hue:20, shotLabel:'ФОТО: ковёр, растяжка', about:'Гимнастика и акробатика для самых маленьких. Мягкое развитие гибкости, осанки и координации.', teachers:['Ольга Реброва — КМС','Светлана Юдина'] },
     { id:3, name:'Каданс', district:'Василеостровский', metro:'Василеостровская', ages:['8-11','12-16'], tags:['Современный','Джаз-фанк'], promoted:false, verified:true, tier:'pro', price:'от 4 000 ₽/мес', gallery:true, hue:65, shotLabel:'ФОТО: студия (1 кадр)', about:'Современная хореография и джаз-фанк. Авторские постановки, отчётные концерты дважды в год.', teachers:['Кристина Лэй — contemporary'] },
     { id:4, name:'Этуаль', district:'Адмиралтейский', metro:'Садовая', ages:['5-7','8-11','12-16'], tags:['Балет','Бальные'], promoted:false, verified:true, tier:'pro', price:'от 4 500 ₽/мес', gallery:true, hue:35, shotLabel:'ФОТО: пуанты, паркет', about:'Балет и бальные танцы в историческом центре. Партнёрская работа, подготовка к конкурсам.', teachers:['Вероника Аист — бальные','Павел Дорн — балет'] },
     { id:5, name:'Степ-Ап', district:'Приморский', metro:'Комендантский пр.', ages:['8-11','12-16'], tags:['K-pop','Джаз-фанк'], promoted:false, verified:false, tier:'free', price:'уточняйте', gallery:true, hue:70, shotLabel:'ФОТО студии', about:'K-pop и современные направления для подростков. Светлый просторный зал на севере города.', teachers:['—'] },
@@ -971,10 +1027,19 @@ class Component extends DCLogic {
     return `padding:8px 14px;border-radius:8px;border:none;cursor:pointer;font-family:'Golos Text',sans-serif;font-size:13.5px;font-weight:${active?600:500};background:${active?'#8f6556':'transparent'};color:${active?'#F6EFEA':'#9A99A0'};transition:.15s;`;
   }
   agePill(active){
-    return `flex:1;padding:11px 6px;border-radius:11px;cursor:pointer;font-family:'Golos Text',sans-serif;font-size:13.5px;font-weight:600;border:1px solid ${active?'#8f6556':'#ddd6ca'};background:${active?'#8f6556':'#fff'};color:${active?'#F6EFEA':'#4a463f'};transition:.15s;`;
+    const base = `flex:1;padding:11px 6px;border-radius:11px;cursor:pointer;font-family:'Golos Text',sans-serif;font-size:13.5px;font-weight:600;transition:.15s;`;
+    return active
+      ? base+`background:#111317;color:#fff;border:1px solid #111317;`
+      : base+`background:transparent;color:#fff;border:1px solid rgba(255,255,255,.45);`;
+  }
+  pillHover(active){
+    return active ? `background:#111317;border-color:#111317;` : `background:#fff;color:#2c2a26;border-color:#fff;`;
   }
   styleChipLight(active){
-    return `padding:8px 13px;border-radius:9px;cursor:pointer;font-family:'Golos Text',sans-serif;font-size:13.5px;border:1px solid ${active?'#8f6556':'#ddd6ca'};background:${active?'#8f6556':'#fff'};color:${active?'#F6EFEA':'#5a554c'};font-weight:${active?600:500};transition:.15s;`;
+    const base = `padding:8px 16px;border-radius:999px;cursor:pointer;font-family:'Golos Text',sans-serif;font-size:13.5px;transition:.15s;`;
+    return active
+      ? base+`background:#111317;color:#fff;border:1px solid #111317;font-weight:600;`
+      : base+`background:transparent;color:#fff;border:1px solid rgba(255,255,255,.45);font-weight:500;`;
   }
   styleChipDark(active){
     return `padding:8px 14px;border-radius:9px;cursor:pointer;font-family:'Golos Text',sans-serif;font-size:13.5px;border:1px solid ${active?'#8f6556':'rgba(255,255,255,.14)'};background:${active?'#8f6556':'transparent'};color:${active?'#F6EFEA':'#cfcdc8'};font-weight:${active?600:500};transition:.15s;`;
@@ -1003,7 +1068,7 @@ class Component extends DCLogic {
     const spSchedule = stp.ages.map((a,i)=>({ group:this.ageLabel(a), days:['Пн · Ср · Пт','Вт · Чт','Сб'][i]||'Пн · Ср', time:['16:00–17:00','17:30–18:45','12:00–13:30'][i]||'18:00–19:00', rowStyle:`display:grid;grid-template-columns:1.2fr 1fr auto;gap:12px;padding:13px 16px;align-items:center;${i?'border-top:1px solid rgba(255,255,255,.07);':''}` }));
     const spTeachers = (stp.teachers||[]).filter(t=>t&&t!=='—').map((t,i)=>{ const p=t.split(' — '); return { name:p[0], role:p[1]||'педагог', shot:this.shot(20+i*22,0.2) }; });
     const spSimilar = this.STUDIOS.filter(x=>x.id!==stp.id && (x.district===stp.district || x.tags.some(t=>stp.tags.includes(t)))).slice(0,4).map(x=>this.studioCard(x));
-    const spThumbs = stp.gallery ? [{shot:this.shot('thumb'+stp.id),label:''}] : [];
+    const spThumbs = [{shot:this.shot('thumb'+stp.id),label:''},{shot:this.shot('thumb2'+stp.id),label:''}];
 
     // ---- catalog derived ----
     const catFiltered = this.STUDIOS.filter(st=>{
@@ -1064,16 +1129,22 @@ class Component extends DCLogic {
         {title:'Юридическая информация', links:['Пользовательское соглашение','Политика данных','Реклама','Российский фонд культуры']},
       ],
 
-      agePresets:[ '5-7','8-11','12-16' ].map(id=>({ label:this.ageLabel(id), onClick:()=>this.setState({heroAge:id}), style:this.agePill(s.heroAge===id) })),
+      agePresets:[ '5-7','8-11','12-16' ].map(id=>({ label:this.ageLabel(id), onClick:()=>this.setState({heroAge:id}), style:this.agePill(s.heroAge===id), hoverStyle:this.pillHover(s.heroAge===id) })),
       districts:this.DISTRICTS,
       onHeroDistrict:(e)=>this.setState({heroDistrict:e.target.value}),
-      heroStyleChips:this.STYLES.map(n=>({ name:n, onClick:()=>this.toggleHeroStyle(n), style:this.styleChipLight(s.heroStyles.includes(n)) })),
+      heroStyleChips:this.STYLES.map(n=>({ name:n, onClick:()=>this.toggleHeroStyle(n), style:this.styleChipLight(s.heroStyles.includes(n)), hoverStyle:this.pillHover(s.heroStyles.includes(n)) })),
+      eventDots:this.EVENTS.map((e,i)=>({ active:(s.eventIdx||0)===i,
+        onClick:()=>{ this.setState({eventIdx:i}); const el=document.getElementById('home-events-strip'); if(el) el.scrollTo({left:i*336,behavior:'smooth'}); },
+        style:`width:9px;height:9px;border-radius:50%;border:none;cursor:pointer;padding:0;transition:.2s;background:${(s.eventIdx||0)===i?'#8f6556':'rgba(255,255,255,.22)'};` })),
       heroMatchLabel:`${matched.length} ${this.plural(matched.length,'студия','студии','студий')} по вашим параметрам`,
 
       events:this.EVENTS.map((e,i)=>({ ...e, shotBg:this.shot(e.hue,0.13), onRemind:()=>this.toggleReminded(i),
         remindLabel: s.reminded[i]?'✓ В календаре':'Напомнить',
         remindStyle:`margin-top:14px;width:100%;padding:10px;border-radius:10px;cursor:pointer;font-family:'Golos Text',sans-serif;font-size:13.5px;font-weight:600;border:1px solid ${s.reminded[i]?'rgba(143,101,86,.5)':'rgba(255,255,255,.14)'};background:${s.reminded[i]?'rgba(143,101,86,.14)':'transparent'};color:${s.reminded[i]?'#8f6556':'#cfcdc8'};` })),
       masters:this.MASTERS.map(m=>({ ...m, shotBg:this.shot(m.hue,0.15) })),
+      masterDots:this.MASTERS.map((m,i)=>({ active:(s.masterIdx||0)===i,
+        onClick:()=>{ this.setState({masterIdx:i}); const el=document.getElementById('home-masters-strip'); if(el) el.scrollTo({left:i*286,behavior:'smooth'}); },
+        style:`width:9px;height:9px;border-radius:50%;border:none;cursor:pointer;padding:0;transition:.2s;background:${(s.masterIdx||0)===i?'#8f6556':'rgba(255,255,255,.22)'};` })),
 
       homeSortChips:[['relevance','По релевантности'],['alpha','По алфавиту'],['district','По району']].map(([id,label])=>({label,onClick:()=>this.setState({homeSort:id}),style:this.sortChip(s.homeSort===id)})),
       homeStudios:this.sortStudios(this.STUDIOS, s.homeSort).map(st=>this.studioCard(st)),
@@ -1096,7 +1167,7 @@ class Component extends DCLogic {
         name:stp.name, district:stp.district, metro:stp.metro, ageRange:this.ageRange(stp.ages),
         titleSize: isMobile?'30px':'44px', badges:spBadges, styleTags:stp.tags, about:stp.about, price:stp.price,
         teachers:spTeachers, schedule:spSchedule, similar:spSimilar, thumbs:spThumbs,
-        galleryCols: (isMobile||!stp.gallery)?'1fr':'repeat(3,1fr)', heroSpan:(isMobile||!stp.gallery)?'auto':'1 / -1',
+        galleryCols: isMobile?'1fr':'repeat(3,1fr)', coverRatio: isMobile?'16/10':'21/8',
         heroH: isMobile?'210px':'360px', thumbH:'150px', heroShot:this.shot(stp.hue,0.13), heroShotLabel:stp.shotLabel,
         freeNote:!stp.gallery, bodyCols: isMobile?'1fr':'1.6fr .9fr',
         address:`Санкт-Петербург, ${stp.district} район · рядом с м. ${stp.metro}`, phone:'+7 (812) 740-00-00',
@@ -1175,7 +1246,7 @@ class Component extends DCLogic {
     return a;
   }
   studioCard(st){
-    return { ...st, shotBg:this.shot(st.hue,0.12), ageRange:this.ageRange(st.ages),
+    return { ...st, shotBg:this.shot(st.hue,0.12), ageRange:this.ageRange(st.ages), city:'Санкт-Петербург',
       onOpen:()=>this.openStudio(st.id), tags:st.tags.slice(0,2) };
   }
 }
